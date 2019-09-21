@@ -33,21 +33,23 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("user called")
-		if List {
-			fmt.Println("list users")
-		}
-		if Unique {
-			fmt.Println("Unique")
+		switch {
+		case List:
+			fmt.Println("List")
+		case Detail:
+			fmt.Println("Detail")
 		}
 	},
 }
 
 var List bool
-var Unique bool
+var Detail bool
+var UserId string
 
 func init() {
 	userCmd.Flags().BoolVarP(&List, "list", "l", false, "List all users")
-	userCmd.Flags().BoolVarP(&Unique, "Unique", "u", false, "Unique")
+	userCmd.Flags().BoolVarP(&Detail, "detail", "d", false, "Get user detail")
+	userCmd.Flags().StringVarP(&UserId, "userId", "i", "", "User id")
 	rootCmd.AddCommand(userCmd)
 
 	// Here you will define your flags and configuration settings.
