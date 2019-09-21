@@ -22,9 +22,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// userCmd represents the user command
-var userCmd = &cobra.Command{
-	Use:   "user",
+// authCmd represents the auth command
+var authCmd = &cobra.Command{
+	Use:   "auth",
 	Short: "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
@@ -33,29 +33,33 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("user called")
-		userHandler := handlers.UserHandler{handlers.GetUserCommantId(List, Detail), UserId}
+		fmt.Println("auth called")
+		userHandler := handlers.AuthHandler{handlers.GetAuthCommantId(Login, Logout, IsLoggedIn), Id, Secret}
 		userHandler.Run()
 	},
 }
 
-var List bool
-var Detail bool
-var UserId string
+var Login bool
+var Logout bool
+var IsLoggedIn bool
+var Id string
+var Secret string
 
 func init() {
-	userCmd.Flags().BoolVarP(&List, "list", "l", false, "List all users")
-	userCmd.Flags().BoolVarP(&Detail, "detail", "d", false, "Get user detail")
-	userCmd.Flags().StringVarP(&UserId, "userId", "i", "", "User id")
-	rootCmd.AddCommand(userCmd)
+	authCmd.Flags().BoolVarP(&Login, "login", "p", false, "Login")
+	authCmd.Flags().BoolVarP(&Logout, "logout", "o", false, "Logout")
+	authCmd.Flags().BoolVarP(&IsLoggedIn, "isLoggedIn", "q", false, "Is logged in")
+	authCmd.Flags().StringVarP(&Id, "id", "i", "", "User id")
+	authCmd.Flags().StringVarP(&Secret, "secret", "g", "", "Secret")
+	rootCmd.AddCommand(authCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// userCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// authCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// userCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// authCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

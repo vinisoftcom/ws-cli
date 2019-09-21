@@ -7,7 +7,7 @@ type UserHandler struct {
 	UserId  string
 }
 
-func GetCommantId(list bool, detail bool) int {
+func GetUserCommantId(list bool, detail bool) int {
 	switch {
 	case list:
 		{
