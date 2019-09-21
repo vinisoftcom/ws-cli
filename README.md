@@ -1,0 +1,2 @@
+# ws-cli
+Websupport CLI
