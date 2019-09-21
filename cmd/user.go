@@ -17,6 +17,7 @@ package cmd
 
 import (
 	"fmt"
+	"ws-cli/handlers"
 
 	"github.com/spf13/cobra"
 )
@@ -33,12 +34,8 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("user called")
-		switch {
-		case List:
-			fmt.Println("List")
-		case Detail:
-			fmt.Println("Detail")
-		}
+		userHandler := handlers.UserHandler{handlers.GetCommantId(List, Detail), UserId}
+		userHandler.Run()
 	},
 }
 
