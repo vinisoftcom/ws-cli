@@ -1,5 +1,5 @@
 # ws-cli
-Websupport CLI created in golang
+Websupport CLI created in golang for [Websupport API](https://rest.websupport.sk/docs/index)
 
 # Usage
 1. Clone
