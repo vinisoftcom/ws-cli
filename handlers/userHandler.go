@@ -2,6 +2,9 @@ package handlers
 
 import "fmt"
 
+const LIST = 0
+const DETAIL = 1
+
 type UserHandler struct {
 	Command int
 	UserId  string
@@ -11,11 +14,11 @@ func GetUserCommantId(list bool, detail bool) int {
 	switch {
 	case list:
 		{
-			return 0
+			return LIST
 		}
 	case detail:
 		{
-			return 1
+			return DETAIL
 		}
 	default:
 		{
@@ -26,11 +29,11 @@ func GetUserCommantId(list bool, detail bool) int {
 
 func (u UserHandler) Run() {
 	switch u.Command {
-	case 0:
+	case LIST:
 		{
 			fmt.Println("List")
 		}
-	case 1:
+	case DETAIL:
 		{
 			fmt.Println("Detail")
 		}
