@@ -1,26 +1,26 @@
 package client
 
 import (
+	"crypto/hmac"
+	"crypto/sha1"
+	"encoding/base64"
+	"encoding/hex"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
 	"os"
 	"os/user"
 	"path"
-	"encoding/json"
-	"io/ioutil"
-	"fmt"
-	"crypto/hmac"
-	"crypto/sha1"
-	"encoding/hex"
-	"encoding/base64"
 	"time"
-	"net/http"
 )
 
 type account struct {
-	Id string `json:"id"`
+	Id     string `json:"id"`
 	Secret string `json:"secret"`
 }
 
-type client struct {  }
+type client struct{}
 
 func (c client) getConfigFilePath() string {
 	user, err := user.Current()
@@ -64,8 +64,8 @@ func (c client) getAccountConfig() (account, error) {
 	var filePath = c.getConfigFilePath()
 
 	if _, err := os.Stat(filePath); err != nil {
-	  acc := account{}
-	  return acc, err
+		acc := account{}
+		return acc, err
 	}
 
 	f, err := os.Open(filePath)
@@ -113,8 +113,8 @@ func (c client) Logout() {
 }
 
 // func (c client) Test() {
-	// var sig = c.getSignature("GET", "/v1/user/self", 123)
-	// println(sig)
+// var sig = c.getSignature("GET", "/v1/user/self", 123)
+// println(sig)
 // }
 
 func (c client) getSignature(method string, path string, time int64, key string) string {
@@ -132,7 +132,7 @@ func (c client) getCanonicalRequest(method string, path string, time int64) stri
 func (c client) CurrentUser() (string, error) {
 	var account, _ = c.getAccountConfig()
 
-	location,_ := time.LoadLocation("GMT")
+	location, _ := time.LoadLocation("GMT")
 	var now = time.Now().In(location)
 	var time = now.UnixNano() / int64(time.Second)
 	var method = "GET"
@@ -140,7 +140,7 @@ func (c client) CurrentUser() (string, error) {
 	var signature = c.getSignature(method, path, time, account.Secret)
 
 	var auth = fmt.Sprintf("%s:%s", account.Id, signature)
-	basic :=  base64.StdEncoding.EncodeToString([]byte(auth))
+	basic := base64.StdEncoding.EncodeToString([]byte(auth))
 
 	var url = fmt.Sprintf("https://rest.websupport.sk%s", path)
 
