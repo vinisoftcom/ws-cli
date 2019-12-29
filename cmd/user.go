@@ -17,7 +17,8 @@ package cmd
 
 import (
 	"fmt"
-	"ws-cli/handlers"
+
+	"github.com/vinisoftcom/ws-cli/handlers"
 
 	"github.com/spf13/cobra"
 )

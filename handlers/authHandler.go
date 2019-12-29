@@ -3,7 +3,8 @@ package handlers
 import (
 	"fmt"
 	"log"
-	"ws-cli/client"
+
+	"github.com/vinisoftcom/ws-cli/client"
 )
 
 const LOGIN = 0
